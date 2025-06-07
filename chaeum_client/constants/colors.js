@@ -15,4 +15,7 @@ export const COLORS = {
   pink: '#F99EEF',
   sodomy: '#484DB4',
   red: '#DD5A5A',
+
+  // Flowkit
+  charcoal: '#222222',
 };
