@@ -13,6 +13,6 @@ export const COLORS = {
   yellow: '#FDEA5D',
   light_green: '#AFD041',
   pink: '#F99EEF',
-  sodomy: '#sodomy',
+  sodomy: '#484DB4',
   red: '#DD5A5A',
 };
