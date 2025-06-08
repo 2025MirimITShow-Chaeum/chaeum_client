@@ -4,7 +4,6 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "react-native";
 
-
 // 아이콘 주석 : 디자인과는 조금 다르지만 화질이 좋음, 일단 이미지로 했음
 export default function BottomNav() {
   const navigation = useNavigation();
@@ -103,13 +102,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    fontSize: 12,
-    color: "#ABB0BC",
-    marginTop: 4,
-  },
-  active: {
-    color: "#F57353",
-    fontWeight: "bold",
+  //   text: {
+  //     fontSize: 12,
+  //     color: "#ABB0BC",
+  //     marginTop: 4,
+  //   },
+  //   active: {
+  //     color: "#F57353",
+  //     fontWeight: "bold",
+  //   },
+  icon: {
+    width: 32,
+    height: 47,
+    resizeMode: "contain",
   },
 });
