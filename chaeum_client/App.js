@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TimerProvider } from './contexts/TimerContext'; 
+import { TimerProvider } from './contexts/TimerContext';
+import './firebase';
 
 import LoginScreen from './screens/LoginScreen';
 import NameScreen from './screens/NameScreen';
