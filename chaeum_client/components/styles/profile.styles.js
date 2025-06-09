@@ -52,6 +52,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  heart: {
+    width: 12,
+    height: 12,
+  },
   reactionText: {
     fontSize: 12,
     fontFamily: fonts.semibold,
