@@ -30,13 +30,17 @@ export default function LoginScreen({ navigation }) {
   const handleGoogleResponse = async () => {
     setIsLoading(true);
     try {
-      const { id_token } = response.authentication;
+      const idToken = response.authentication.idToken;
+      const accessToken = response.authentication.accessToken;
 
-      if (!id_token) {
+      console.log("ID Token:", idToken);
+      console.log("Access Token:", accessToken);
+
+      if (!idToken) {
         throw new Error("ID 토큰을 받지 못했습니다.");
       }
 
-      const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+      const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
       const userCredential = await auth.signInWithCredential(credential);
       const user = userCredential.user;
 
@@ -44,7 +48,8 @@ export default function LoginScreen({ navigation }) {
       console.log("사용자 정보:", {
         email: user.email,
         displayName: user.displayName,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        providerData: user.providerData
       });
 
       // 백엔드와 연결한 후, 유저 nickname이 있다면 홈으로 아니라면 회원가입 진행
@@ -64,9 +69,9 @@ export default function LoginScreen({ navigation }) {
       Alert.alert("설정 오류", "Google 로그인 설정을 확인해주세요.");
       return;
     }
-
     try {
       console.log("Google 로그인 프롬프트 시작...");
+      console.log("Request 설정:", request);
       await promptAsync();
     } catch (error) {
       console.error("Google 로그인 프롬프트 에러:", error);
