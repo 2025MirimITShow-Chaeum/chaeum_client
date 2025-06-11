@@ -9,15 +9,20 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import { useTimer } from "../contexts/TimerContext"; 
+import { useTimer } from "../contexts/TimerContext";
 
 const categories = ["😱 수학키움반", "응용과 개발", "과학 A팀", "🧠 파이팅"];
 
 export default function TimerScreen() {
   const navigation = useNavigation();
-  const [activeCategory, setActiveCategory] = React.useState("응용과 개발");
 
-  const { isRunning, setIsRunning, elapsed } = useTimer();
+  const {
+    isRunning,
+    setIsRunning,
+    elapsed,
+    activeCategory,
+    setActiveCategory,
+  } = useTimer();
 
   const formatTime = (seconds) => {
     const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
@@ -132,13 +137,17 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "400",
   },
+  timerWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   timerTextWrapper: {
     alignItems: "center",
   },
   timerLabel: {
     color: "#fff",
     fontSize: 16,
-    marginBottom: 6, //임시
+    marginBottom: 6,
   },
   timerValue: {
     color: "#fff",
@@ -147,7 +156,7 @@ const styles = StyleSheet.create({
   },
   totalLabel: {
     color: "#3275CD",
-    marginTop: 36, //임시
+    marginTop: 36,
     fontSize: 10,
   },
   totalTime: {
