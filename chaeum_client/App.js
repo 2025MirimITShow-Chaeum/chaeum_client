@@ -44,7 +44,7 @@ export default function App() {
     <TimerProvider>
       <NavigationContainer>
         {/* initialRouteName에 자신이 테스트할 페이지 넣기 */}
-        <Stack.Navigator initialRouteName="Group" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Name" component={NameScreen} />
           <Stack.Screen name="ProfileImage" component={ProfileImageScreen} />
