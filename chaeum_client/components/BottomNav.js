@@ -85,7 +85,7 @@ export default function BottomNav() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 75,
+    height: 95,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 8,
     zIndex: 10,
+    paddingBottom: 20,
   },
   item: {
     justifyContent: "center",
