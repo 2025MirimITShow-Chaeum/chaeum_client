@@ -15,7 +15,6 @@ import ProfileImageScreen from './screens/ProfileImageScreen';
 import HomeScreen from './screens/HomeScreen';
 import TimerScreen from './screens/TimerScreen';
 import GroupScreen from './screens/GroupScreen';
-import TestScreen from './screens/testScreen';
 
 const Stack = createStackNavigator();
 
