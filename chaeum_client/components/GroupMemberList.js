@@ -9,10 +9,10 @@ export default function GroupMemberList({ members }) {
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
       {members.map((member) => (
         <GroupMemberItem
-          key={member.id}
-          name={member.name}
+          key={member.uid}
+          name={member.nickname}
           color={member.color}
-          image={member.image}
+          image={member.profileImage}
         />
       ))}
     </ScrollView>

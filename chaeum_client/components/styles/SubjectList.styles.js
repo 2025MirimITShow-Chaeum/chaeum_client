@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     gap: 8,
     paddingTop: 70,
     paddingLeft: 31,
-    paddingBottom: 40,
+    paddingBottom: 30,
   },
   groupButton: {
     paddingHorizontal: 14,

@@ -5,8 +5,7 @@ import { styles } from './styles/NameTag.styles';
 export default function NameTag({ name, showPlus = true }) {
   return (
     <View style={[
-        styles.container,
-        { backgroundColor: showPlus ? '#F1F1F1' : '#666' },
+        styles.container
       ]}>
       <Text style={styles.name}>{name}</Text>
       {showPlus && (

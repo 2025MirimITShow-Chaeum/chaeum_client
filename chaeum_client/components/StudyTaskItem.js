@@ -1,6 +1,17 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+// src/components/StudyTaskItem.js
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet
+} from "react-native";
 
-export default function StudyTaskItem({ subject = "응용과 개발", time = "00:49:10" }) {     //임시
+export default function StudyTaskItem({
+  subject = "응용과 개발",
+  time = "00:00:00"
+}) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.subjectButton}>
@@ -13,7 +24,7 @@ export default function StudyTaskItem({ subject = "응용과 개발", time = "00
       <View style={styles.timerSection}>
         <Text style={styles.timerText}>{time}</Text>
         <Image
-          source={require("../assets/clock.png")} 
+          source={require("../assets/clock.png")}
           style={styles.icon}
         />
       </View>
@@ -30,7 +41,7 @@ const styles = StyleSheet.create({
   },
   subjectButton: {
     flexDirection: "row",
-    backgroundColor: "#5399F5",     //버튼 색상 코드 임시
+    backgroundColor: "#5399F5",
     borderRadius: 24,
     paddingHorizontal: 12,
     paddingVertical: 6.5,
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   icon: {
-    width: 15,  //디자인 : 크기 물어보기
+    width: 15,
     height: 15,
     resizeMode: "contain",
   },

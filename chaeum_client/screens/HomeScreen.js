@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import BottomNav from "../components/BottomNav"; 
-import StudyTaskItem from "../components/StudyTaskItem";
+import LessonSection from "../components/LessonSection";
 import Profile from "../components/Profile";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +28,7 @@ export default function HomeScreen() {
 
       <ScrollView contentContainerStyle={styles.body}>
         <Profile/>
-        <StudyTaskItem />
+        <LessonSection />
 
         <Image
           source={require("../assets/homeLogo.png")}
