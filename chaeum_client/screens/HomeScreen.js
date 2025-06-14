@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import BottomNav from "../components/BottomNav"; 
 import LessonSection from "../components/LessonSection";
-import Profile from "../components/profile";
+import Profile from "../components/Profile";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
