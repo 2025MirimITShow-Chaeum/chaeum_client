@@ -3,25 +3,16 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-nati
 import { styles } from './styles/SubjectList.styles';
 import { COLORS } from '../constants/colors';
 
-const SubjectList = ({ groups }) => {
-  const [selectedGroupId, setSelectedGroupId] = useState(null);
-
-  useEffect(() => {
-    if (groups.length > 0 && !selectedGroupId) {
-      setSelectedGroupId(groups[0].group_id || groups[0].id);
-    }
-  }, [groups]);
-  
+const SubjectList = ({ groups, selectedGroupId, onSelectGroup }) => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View style={styles.container}>
         {groups.map(group => {
-          const groupId = group.group_id || group.id;
-          const isSelected = groupId === selectedGroupId;
+          const isSelected = group.group_id === selectedGroupId;
           return (
             <TouchableOpacity
-              key={groupId}
-              onPress={() => setSelectedGroupId(groupId)}
+              key={group.group_id}
+              onPress={() => onSelectGroup(group.group_id)}
               style={[
                 styles.groupButton,
                 {

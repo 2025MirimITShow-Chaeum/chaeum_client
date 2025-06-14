@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F4F4F4',
+    backgroundColor: '#F1F1F1',
     paddingHorizontal: 13,
     paddingVertical: 7,
     borderRadius: 999,

@@ -8,56 +8,106 @@ import DividingLine from '../components/dividingLine';
 import GroupMemberList from '../components/GroupMemberList';
 import NameTag from '../components/NameTag';
 import BottomNav from "../components/BottomNav"; 
-import { fetchGroupsByUser } from '../utils/api';
+import { fetchGroupsByUser, fetchGroupDetail, fetchTodosByGroup } from '../utils/api';
+
+// TODO: 출석 별 채우기, todo 수정, 삭제, 하트 유지 
 
 export default function GroupScreen() {
+  const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
   const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   useEffect(() => {
-  const loadGroups = async () => {
-    try {
-      const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
-      const data = await fetchGroupsByUser(userId);
-      setGroups(data);
-    } catch (error) {
-      if (error.response?.status === 404) {
-        console.warn("그룹 없음: 유저는 있지만 그룹 없음");
-        setGroups([]); // 빈 상태로 렌더링
-      } else {
-        console.error("그룹 불러오기 실패:", error);
+    const loadGroups = async () => {
+      try {
+        const data = await fetchGroupsByUser(userId);
+        setGroups(data);
+
+        // 첫 번째 그룹을 선택된 그룹으로 설정
+        if (data.length > 0) {
+          setSelectedGroupId(data[0].group_id);
+        }
+      } catch (error) {
+        if (error.response?.status === 404) {
+          console.warn("✅ 그룹 없음: 유저는 있지만 그룹 없음");
+          setGroups([]); // 빈 상태로 렌더링
+        } else {
+          console.error("❌ 그룹 불러오기 실패:", error);
+        }
       }
+    };
+
+    loadGroups();
+  }, []);
+  
+  const [groupDetail, setGroupDetail] = useState(null);
+   const myNickname = groupDetail?.members?.find(m => m.uid === userId)?.nickname ?? '나';
+
+  // 그룹 선택 시 상세 정보 로딩
+  useEffect(() => {
+    const loadGroupDetail = async () => {
+      if (!selectedGroupId) return;
+      console.log("📡 요청할 group_id:", selectedGroupId);
+      try {
+        const data = await fetchGroupDetail(selectedGroupId);
+        console.log("✅ 받아온 groupDetail:", data);
+        setGroupDetail(data);
+      } catch (error) {
+        console.error('❌ 그룹 상세 정보 불러오기 실패:', error);
+      }
+    };
+
+    loadGroupDetail();
+  }, [selectedGroupId]);
+
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      if (!selectedGroupId) return;
+
+      try {
+        const res = await fetchTodosByGroup(selectedGroupId);
+        setTodos(res.data); // 모든 멤버의 투두를 저장
+      } catch (error) {
+        console.error("투두 불러오기 실패:", error);
+      }
+    };
+
+    loadTodos();
+  }, [selectedGroupId]);
+
+  const myTodos = todos.filter(todo => todo.user_id === userId);
+  const otherTodosMap = {};
+
+  todos.forEach(todo => {
+    if (todo.user_id !== userId) {
+      if (!otherTodosMap[todo.user_id]) {
+        otherTodosMap[todo.user_id] = {
+          user_id: todo.user_id,
+          nickname: todo.user?.nickname ?? '이름 없음',
+          color: todo.user_color,
+          todos: [],
+        };
+      }
+      otherTodosMap[todo.user_id].todos.push(todo);
     }
-  };
+  });
 
-  loadGroups();
-}, []);
+  const otherMembers = Object.values(otherTodosMap);
 
-  // const mockGroups = [
-  //   { id: 1, name: '😱 수학키움반', color: COLORS.sora },
-  //   { id: 2, name: '응용과 개발', color: COLORS.purple },
-  //   { id: 3, name: '과학 A팀', color: COLORS.yellow },
-  //   { id: 4, name: '🧠 파이팅국어', color: COLORS.sodomy },
-  // ];
-
-  const mockMembers = [
-    { id: 1, name: '정세연', color: '#5B8DEF' },
-    { id: 2, name: '장하영', color: '#B06EDB' },
-    { id: 3, name: '정세연', color: '#5B8DEF' },
-    { id: 4, name: '장하영', color: '#B06EDB' },
-    { id: 5, name: '정세연', color: '#5B8DEF' },
-    { id: 6, name: '장하영', color: '#B06EDB' },
-  ];
-
-  const [now, setNow] = useState(new Date());
-
+  const [now] = useState(new Date());
   const days = ['일', '월', '화', '수', '목', '금', '토'];
   const formattedDate = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView style={{ backgroundColor: '#fff' }}>
-        <SubjectList groups={groups} />
+        <SubjectList
+          groups={groups}
+          selectedGroupId={selectedGroupId}
+          onSelectGroup={setSelectedGroupId}
+        />
         <View style={styles.container}>
           <View style={styles.today}>
             <Text style={styles.text}>{formattedDate}</Text>
@@ -72,26 +122,45 @@ export default function GroupScreen() {
             </TouchableOpacity>
             <View style={[styles.Box, { gap: 14 }]}>
               <Text>그룹코드</Text>
-              <Text style={styles.code}>A3B7D2</Text>
+              <Text style={styles.code}>
+                {groupDetail?.secret_code ?? '선택된 그룹 없음'}
+              </Text>
             </View>
           </View>
         </View>
         <View style={styles.memberBox}>
-          <Text style={styles.count}>8일 연속 채움중{"\n"}오늘도 파이팅!</Text>
-          <GroupMemberList members={mockMembers} />
+          <Text style={styles.count}>
+            {groupDetail?.attendance_count ?? 0}일 연속 채움중{"\n"}오늘도 파이팅!
+          </Text>
+          <GroupMemberList members={groupDetail?.members ?? []} />
         </View>
         <View style={styles.container}>
-          <NameTag name={'정세연'} />
-          <TodoList />
-          <TodoList />
-          <TodoList />
-          <View style={styles.line}/>
-          <NameTag name={'정세연'} showPlus={false} />
-          <TodoList />
-          <TodoList />
-          <TodoList />
+          <NameTag name={myNickname} />
+          {myTodos.map(todo => (
+            <TodoList
+              key={todo.uid}
+              title={todo.title}
+              is_completed={todo.is_completed}
+              memberColor={todo.user_color}
+            />
+          ))}
+
+          <View style={styles.line} />
+
+          {otherMembers.map(member => (
+            <View key={member.user_id}>
+              <NameTag name={member.nickname} showPlus={false} />
+              {member.todos.map(todo => (
+                <TodoList
+                  key={todo.uid}
+                  title={todo.title}
+                  is_completed={todo.is_completed}
+                  memberColor={member.color}
+                />
+              ))}
+            </View>
+          ))}
         </View>
-        
       </ScrollView>
       <BottomNav />
     </View>
