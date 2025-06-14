@@ -1,4 +1,3 @@
-// src/components/TodoList.js
 import React, { useState } from "react";
 import {
   View,
@@ -10,12 +9,7 @@ import { styles } from "./styles/TodoList.styles";
 import StarIcon from "../assets/Star.svg";
 import CheckIcon from "../assets/check.svg";
 
-export default function TodoList({
-  title = "1과 본문 1회독",
-  is_completed = false,
-  initialLiked = false,
-  memberColor = "#5399F5",
-}) {
+export default function TodoList({ title, is_completed, initialLiked, memberColor }) {
   const [starred, setStarred] = useState(is_completed);
   const [liked, setLiked] = useState(initialLiked);
 

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   checkIcon: {
     position: 'absolute',
-    top: 8,
+    top: 9,
     left: 7,
   },
   title: {

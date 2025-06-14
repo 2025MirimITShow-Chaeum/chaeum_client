@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { styles } from './styles/Profile.styles';
+import { styles } from './styles/profile.styles';
 
 const Profile = ({
   style,
