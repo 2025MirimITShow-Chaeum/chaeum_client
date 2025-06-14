@@ -46,6 +46,7 @@ export default function LoginScreen({ navigation }) {
 
       // 2) Firebase ID 토큰
       const firebaseIdToken = await user.getIdToken(true);
+      console.log("id token", await user.getIdToken());
 
       // 3) 백엔드 로그인 API 호출
       const res = await loginWithGoogle({ idToken: firebaseIdToken });
