@@ -13,7 +13,7 @@ import firebase from "firebase/compat/app";
 import { auth } from "../firebase";
 import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
-import { loginWithGoogle } from "../src/api";  // ← 변경
+import { loginWithGoogle } from "../src/api"; // ← 변경
 import * as SecureStore from "expo-secure-store";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -53,6 +53,7 @@ export default function LoginScreen({ navigation }) {
 
       // 4) JWT 저장
       await SecureStore.setItemAsync("accessToken", jwt);
+      console.log("JWT Token:", jwt);
 
       // 5) 네비게이션
       if (!backendUser.nickname) {
@@ -65,10 +66,13 @@ export default function LoginScreen({ navigation }) {
     } catch (error) {
       console.error("=== 로그인 실패 ===", error);
       if (error.response) {
-        console.error('Response status:', error.response.status);
-        console.error('Response data:', error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response data:", error.response.data);
       }
-      Alert.alert("로그인 오류", error.response?.data?.message || error.message);
+      Alert.alert(
+        "로그인 오류",
+        error.response?.data?.message || error.message
+      );
     } finally {
       setIsLoading(false);
     }
@@ -90,10 +94,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/logoText.png")}
-        style={styles.logo}
-      />
+      <Image source={require("../assets/logoText.png")} style={styles.logo} />
       <Text style={styles.slogan}>슬로건 내용</Text>
       <Image
         source={require("../assets/loginLogo.png")}
