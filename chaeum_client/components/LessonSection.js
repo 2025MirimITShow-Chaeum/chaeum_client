@@ -55,9 +55,9 @@ export default function LessonSection() {
   if (groups.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>
+        {/* <Text style={styles.emptyText}>
           지금 터치해서 스터디 그룹을 만들어봐요!
-        </Text>
+        </Text> */}
         <Image
           source={require("../assets/homeLogo.png")}
           style={styles.emptyImage}

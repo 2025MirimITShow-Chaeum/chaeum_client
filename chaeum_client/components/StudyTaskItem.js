@@ -10,11 +10,15 @@ import {
 
 export default function StudyTaskItem({
   subject = "응용과 개발",
-  time = "00:00:00"
+  time = "00:00:00",
+  onPlusPress  // + 버튼 눌렀을 때 실행될 콜백
 }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.subjectButton}>
+      <TouchableOpacity
+        style={styles.subjectButton}
+        onPress={onPlusPress}
+      >
         <Text style={styles.subjectText}>{subject}</Text>
         <View style={styles.plusCircle}>
           <Text style={styles.plusText}>＋</Text>
