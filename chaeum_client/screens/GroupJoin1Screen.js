@@ -5,25 +5,18 @@ import InputField from "../components/InputField";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
 
-export default function GroupNameScreen() {
+export default function GroupJoin1Screen() {
   const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+  
   return (
     <View style={styles.container}>
       <Header />
-      <Text style={styles.title}>그룹 만들기 step 1</Text>
-      <Text style={styles.label}>그룹 이름이 무엇인가요?</Text>
+      <Text style={styles.title}>그룹 입장하기 step 1</Text>
+      <Text style={styles.label}>친구에게 받은 그룹 코드를 입력해 주세요!</Text>
       <InputField
         value={name}
         onChangeText={setName}
         placeholder="눌러서 작성하기"
-      />
-      <NextButton
-        title={isLoading ? "저장 중..." : "결정 완료"}
-        disabled={!name || isLoading}
-        onPress={handleNext}
-        style={styles.btn}
       />
     </View>
   );
@@ -46,5 +39,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.medium,
     marginBottom: 20,
   },
-  btn: { marginTop: 312 },
 });
