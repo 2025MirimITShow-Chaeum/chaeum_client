@@ -9,7 +9,7 @@ export const COLORS = {
   brown: '#D2A16A',
   mint: '#65D4B5',
   green: '#28AF37',
-  orange: '#28AF37',
+  orange: '#F3B456',
   yellow: '#FDEA5D',
   light_green: '#AFD041',
   pink: '#F99EEF',

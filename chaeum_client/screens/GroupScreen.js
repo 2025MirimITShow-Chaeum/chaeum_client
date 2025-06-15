@@ -44,7 +44,7 @@ export default function GroupScreen() {
   }, []);
   
   const [groupDetail, setGroupDetail] = useState(null);
-   const myNickname = groupDetail?.members?.find(m => m.uid === userId)?.nickname ?? '나';
+  const myNickname = groupDetail?.members?.find(m => m.uid === userId)?.nickname ?? '나';
 
   // 그룹 선택 시 상세 정보 로딩
   useEffect(() => {
