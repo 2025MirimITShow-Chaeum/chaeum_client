@@ -125,15 +125,20 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    // justifyContent: 'center',
+    backgroundColor: "#fff",
+  },
   slogan: { fontSize: 16 },
   kakaoButton: {
     backgroundColor: "#FEE500",
     width: "80%",
     padding: 12,
     borderRadius: 8,
+    // marginTop: 24,
     alignItems: "center",
-    marginTop: 40,
   },
   kakaoText: { fontWeight: "bold" },
   googleButton: {
@@ -145,8 +150,17 @@ const styles = StyleSheet.create({
     marginTop: 17,
     alignItems: "center",
   },
-  disabledButton: { opacity: 0.6 },
   googleText: {},
-  logo: { width: 206, height: 84, marginTop: 100, marginBottom: 35 },
-  loginLogo: { width: 313, height: 228, marginBottom: 39 },
+  logo: {
+    width: 206,
+    height: 84,
+    marginBottom: 35,
+    marginTop: 202,
+  },
+  loginLogo: {
+    width: 313,
+    height: 228,
+    marginTop: 61,
+    marginBottom: 39,
+  },
 });
