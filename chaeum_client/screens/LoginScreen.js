@@ -56,6 +56,8 @@ export default function LoginScreen({ navigation }) {
       await SecureStore.setItemAsync("accessToken", jwt);
       console.log("JWT Token:", jwt);
 
+      //  userId 저장 추가
+      await SecureStore.setItemAsync("userId", String(backendUser.id));
       // 5) 네비게이션
       if (!backendUser.nickname) {
         navigation.replace("Name");
