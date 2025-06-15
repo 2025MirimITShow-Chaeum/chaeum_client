@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Image, Pressable } from 'react-native';
 import { styles } from './styles/Rank.styles';
 import { useNavigation } from "@react-navigation/native";
-import BottomNav from "../components/BottomNav"; 
+import BottomNav from "../components/BottomNav";
 
 export default function RankScreen() {
   const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
@@ -31,28 +31,33 @@ export default function RankScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      {/* Top 3 */}
-      {top3Groups.map((group, index) => (
-        <View
-          key={group.group_id}
-          style={[styles.groupContainer, styles[`rank${index + 1}`]]}
-        >
-          <Text style={styles.groupName}>
-            {index === 0 ? "😱 " : ""}
-            {group.group_name}
-          </Text>
-          <Image
-            source={
-              index === 0
-                ? require("../assets/1등.png")
-                : index === 1
-                ? require("../assets/2등.png")
-                : require("../assets/3등.png")
-            }
-            style={styles.trophyImg}
-          />
+      <View style={[styles.container, styles.rank, {
+        paddingTop: 70
+      }]}>
+        <View style={styles.appbar}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={require('../assets/arrow.png')} style={styles.arrow} />
+          </TouchableOpacity>
+          <View style={styles.week}>
+            <Image source={require('../assets/week.png')} style={styles.weekImg} />
+          </View>
         </View>
-      ))}
+        {/* 1등 */}
+        <View style={[styles.groupContainer, styles.first]}>
+          <Text style={[styles.groupName, styles.oneText]}>😱 수학키움반</Text>
+          <Image source={require('../assets/1등.png')} style={[styles.trophyImg, styles.one]} />
+        </View>
+        {/* 2등 */}
+        <View style={[styles.groupContainer, styles.second]}>
+          <Text style={[styles.groupName, styles.twoText, styles.Text]}>과학 A팀</Text>
+          <Image source={require('../assets/2등.png')} style={styles.trophyImg} />
+        </View>
+        {/* 3등 */}Add commentMore actions
+        <View style={[styles.groupContainer, styles.third]}>
+          <Text style={[styles.groupName, styles.threeText, styles.Text]}>응용과 개발</Text>
+          <Image source={require('../assets/3등.png')} style={styles.trophyImg} />
+        </View>
+      </View>
 
       {/* 그룹 목록 */}
       <View style={[styles.container, styles.toggle]}>

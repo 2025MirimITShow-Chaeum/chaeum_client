@@ -23,10 +23,10 @@ export const styles = StyleSheet.create({
   },
   week: {
     position: 'absolute',
-    left: '28%',
+    left: '27r%',
   },
   weekImg: {
-    width: 170,
+    width: 180,
     resizeMode: 'contain',
   },
 

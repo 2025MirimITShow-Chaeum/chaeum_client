@@ -10,11 +10,12 @@ import NameTag from '../components/NameTag';
 import BottomNav from "../components/BottomNav"; 
 import { useNavigation } from '@react-navigation/native';
 import { fetchGroupsByUser, fetchGroupDetail, fetchTodosByGroup } from '../utils/api';
+import { USER_ID } from "@env";
 
 // TODO: 출석 별 채우기, todo 수정, 삭제, 하트 유지 
 
 export default function GroupScreen() {
-  const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
+  const userId = USER_ID;
   const navigation = useNavigation();
   const [groups, setGroups] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState(null);
