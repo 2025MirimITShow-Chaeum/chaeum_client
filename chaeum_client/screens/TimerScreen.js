@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import * as SecureStore from "expo-secure-store";
-import api, { fetchAccumulatedTime } from "../src/api";  // fetchAccumulatedTime 추가
+import api, { fetchAccumulatedTime } from "../src/api"; // fetchAccumulatedTime 추가
 
 export default function TimerScreen() {
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ export default function TimerScreen() {
   useEffect(() => {
     let id;
     if (isRunning) {
-      id = setInterval(() => setElapsed(prev => prev + 1), 1000);
+      id = setInterval(() => setElapsed((prev) => prev + 1), 1000);
     }
     return () => clearInterval(id);
   }, [isRunning]);
@@ -48,10 +48,9 @@ export default function TimerScreen() {
         if (!token || !userId) throw new Error("로그인 정보 없음");
 
         // 그룹 조회
-        const { data: groupsData } = await api.get(
-          `/group?user_id=${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const { data: groupsData } = await api.get(`/group?user_id=${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setGroups(groupsData);
         const firstId = groupsData[0]?.group_id || "";
         setActiveGroup(firstId);
@@ -218,18 +217,49 @@ export default function TimerScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#5399F5", paddingTop: 47, justifyContent: "flex-start", alignItems: "center" },
+  container: {
+    flex: 1,
+    backgroundColor: "#5399F5",
+    paddingTop: 47,
+    // justifyContent: "flex-start",
+    alignItems: "center",
+  },
   closeButton: { position: "absolute", top: 65, left: 31, zIndex: 10 },
-  chipContainer: { height: 36, flexDirection: "row", paddingHorizontal: 40, marginTop: 92, marginBottom: 80, alignSelf: "center" },
-  chip: { borderColor: "#fff", borderWidth: 1, paddingHorizontal: 12, paddingVertical: 9, borderRadius: 27, marginHorizontal: 8 },
+  chipContainer: {
+    height: 36,
+    flexDirection: "row",
+    paddingHorizontal: 40,
+    marginTop: 92,
+    marginBottom: 80,
+    alignSelf: "center",
+  },
+  chip: {
+    borderColor: "#fff",
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    borderRadius: 27,
+    marginHorizontal: 8,
+  },
   chipActive: { backgroundColor: "#fff" },
   chipText: { color: "#fff", fontSize: 14 },
   chipTextActive: { color: "#000", fontWeight: "400" },
-  timerWrapper: { alignItems: "center", justifyContent: "center", marginTop: 20 },
-  timerTextWrapper: { alignItems: "center" },
+  timerWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    // marginTop: 10,
+    marginBottom: 10
+  },
+  timerTextWrapper: {  alignItems: "center" },
   timerLabel: { color: "#fff", fontSize: 16, marginBottom: 6 },
   timerValue: { color: "#fff", fontSize: 50, fontWeight: "500" },
   totalLabel: { color: "#3275CD", marginTop: 36, fontSize: 10 },
   totalTime: { color: "#3275CD", fontSize: 26 },
-  pauseButton: { marginTop: 52, backgroundColor: "#fff", padding: 20, borderRadius: 40 },
+  pauseButton: {
+    marginTop: 52,
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 40,
+    marginBottom: 90
+  },
 });
