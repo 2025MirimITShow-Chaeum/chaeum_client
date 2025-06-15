@@ -15,6 +15,7 @@ import ProfileImageScreen from './screens/ProfileImageScreen';
 import HomeScreen from './screens/HomeScreen';
 import TimerScreen from './screens/TimerScreen';
 import GroupScreen from './screens/GroupScreen';
+import RankScreen from './screens/RankScreen';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Timer" component={TimerScreen} />
           <Stack.Screen name="Group" component={GroupScreen} />
+          <Stack.Screen name="Rank" component={RankScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </TimerProvider>

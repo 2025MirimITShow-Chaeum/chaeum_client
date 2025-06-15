@@ -23,15 +23,11 @@ export const styles = StyleSheet.create({
   },
   week: {
     position: 'absolute',
-    left: '38%',
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    paddingVertical: 8,
-    paddingHorizontal: 25,
+    left: '28%',
   },
-  weekText: {
-    fontSize: 14,
-    fontFamily: fonts.medium
+  weekImg: {
+    width: 170,
+    resizeMode: 'contain',
   },
 
   groupContainer: {
@@ -45,11 +41,11 @@ export const styles = StyleSheet.create({
   },
   second: {
     bottom: -240,
-    right: '20%',
+    right: '18%',
   },
   third: {
     bottom: -240,
-    left: '20%',
+    left: '18%',
   },
 
   groupName: {
@@ -72,10 +68,10 @@ export const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   twoText: {
-    right: '6%',
+    right: '33',
   },
   threeText: {
-    left: '6%',
+    left: '33',
   },
   trophyImg: {
     height: 350,
@@ -89,5 +85,58 @@ export const styles = StyleSheet.create({
   toggle: {
     flexDirection: 'row',
     gap: 15,
-  }
+    marginTop: 30,
+  },
+  activeTab: {
+    fontFamily: fonts.semibold,
+    color: COLORS.charcoal,
+  },
+  inactiveTab: {
+    fontFamily: fonts.semibold,
+    color: COLORS.deactivate,
+  },
+  groupItem: {
+    fontSize: 16,
+    marginVertical: 4,
+  },
+  underline: {
+    marginTop: 4,
+    height: 3,
+    width: 52,
+    backgroundColor: COLORS.mainColor,
+  },
+
+  rankList: {
+    marginTop: 30,
+  },
+  groupRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  ranking: {
+    width: 40,
+    textAlign: 'center',
+    fontSize: 17,
+    fontFamily: fonts.semibold,
+    color: COLORS.mainColor,
+  },
+  groupItem: {
+    width: 275,
+    textAlign: 'left',
+    fontSize: 16,
+    color: COLORS.charcoal,
+    paddingLeft: 30,
+  },
+  attendance: {
+    width: 13,
+    resizeMode: 'contain',
+  },
+  attendanceText: {
+    width: 25,
+    textAlign: 'center',
+    fontSize: 14,
+    fontFamily: fonts.semibold,
+    color: COLORS.charcoal,
+  },
 });

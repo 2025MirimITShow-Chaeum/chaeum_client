@@ -8,12 +8,14 @@ import DividingLine from '../components/dividingLine';
 import GroupMemberList from '../components/GroupMemberList';
 import NameTag from '../components/NameTag';
 import BottomNav from "../components/BottomNav"; 
+import { useNavigation } from '@react-navigation/native';
 import { fetchGroupsByUser, fetchGroupDetail, fetchTodosByGroup } from '../utils/api';
 
 // TODO: 출석 별 채우기, todo 수정, 삭제, 하트 유지 
 
 export default function GroupScreen() {
   const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
+  const navigation = useNavigation();
   const [groups, setGroups] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState(null);
 
@@ -116,14 +118,17 @@ export default function GroupScreen() {
           <WeeklyStars />
           <DividingLine />
           <View style={styles.info}>
-            <TouchableOpacity style={[styles.Box, { gap: 9 }]}>
+            <TouchableOpacity
+              style={[styles.Box, { gap: 9 }]}
+              onPress={() => navigation.navigate('Rank')}
+            >
               <Image source={require('../assets/불.png')} style={styles.image} />
               <Text style={styles.rankText}>현재 그룹 순위는?</Text>
             </TouchableOpacity>
             <View style={[styles.Box, { gap: 14 }]}>
               <Text>그룹코드</Text>
               <Text style={styles.code}>
-                {groupDetail?.secret_code ?? '선택된 그룹 없음'}
+                {groupDetail?.secret_code ?? '그룹 없음'}
               </Text>
             </View>
           </View>
