@@ -1,10 +1,11 @@
+// screens/ProfileImageScreen.js
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
-import api from "../src/api.js";
+import { registerProfileImage } from "../src/api";  // ★ named export
 import * as SecureStore from "expo-secure-store";
 
 export default function ProfileImageScreen({ navigation }) {
@@ -12,37 +13,29 @@ export default function ProfileImageScreen({ navigation }) {
   const [imageBase64, setImageBase64] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 컴포넌트 마운트 시 토큰 확인
   useEffect(() => {
-    checkToken();
-  }, []);
-
-  const checkToken = async () => {
-    try {
+    (async () => {
       const token = await SecureStore.getItemAsync("accessToken");
       if (!token) {
         Alert.alert("인증 오류", "로그인이 필요합니다.", [
           { text: "확인", onPress: () => navigation.replace("Login") }
         ]);
       }
-    } catch (error) {
-      console.error("토큰 확인 실패:", error);
-    }
-  };
+    })();
+  }, []);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       return Alert.alert("권한 오류", "갤러리 접근 권한이 필요합니다.");
     }
-    const result = await ImagePicker.launchImageLibraryAsync({ 
-      allowsEditing: true, 
-      quality: 1, 
-      base64: false 
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+      base64: false,
     });
     if (result.canceled) return;
 
-    // resize + base64
     const manip = await ImageManipulator.manipulateAsync(
       result.assets[0].uri,
       [{ resize: { width: 200, height: 200 } }],
@@ -56,16 +49,14 @@ export default function ProfileImageScreen({ navigation }) {
     if (!imageBase64) {
       return Alert.alert("알림", "프로필 사진을 선택해주세요.");
     }
-    
     setIsLoading(true);
     try {
-      console.log('프로필 이미지 업데이트 요청');
-      const res = await api.patch("/register", { profile_image: imageBase64 });
-      console.log('프로필 이미지 업데이트 응답:', res.data);
+      const res = await registerProfileImage(imageBase64);
+      console.log("=== 프로필 저장 응답 ===", res.data);
       navigation.replace("Home");
-    } catch (error) {
-      console.error("프로필 저장 실패:", error);
-      if (error.response?.status === 401) {
+    } catch (err) {
+      console.error("=== 프로필 저장 실패 ===", err.response || err);
+      if (err.response?.status === 401) {
         Alert.alert("인증 오류", "다시 로그인해주세요.", [
           { text: "확인", onPress: () => navigation.replace("Login") }
         ]);
