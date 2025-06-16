@@ -115,6 +115,6 @@ const styles = StyleSheet.create({
   placeholder: { flex: 1, justifyContent: "flex-end", alignItems: "center" },
   placeholderText: { color: "#C8C8C8", fontSize: 14 },
   image: { width: "100%", height: "100%" },
-  backArrow: { marginTop: 8, width: 24, height: 24 },
+  // backArrow: { marginTop: 8, width: 24, height: 24 },
   btn: { marginTop: 0 },
 });
