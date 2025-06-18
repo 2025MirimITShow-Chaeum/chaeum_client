@@ -1,7 +1,5 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { COLORS } from '../constants/colors';
-import { fonts } from '../constants/fonts';
 import GroupMemberItem from './GroupMemberItem';
 
 export default function GroupMemberList({ members }) {

@@ -8,7 +8,7 @@ import EditIcon from '../assets/EditIcon.svg';
 import TrashIcon from '../assets/TrashIcon.svg';
 import AddIcon from '../assets/AddIcon.svg';
 import { useNavigation } from '@react-navigation/native';
-import { fetchUserInfo, updateUserInfo, fetchDdays, postDday, deleteDday, fetchGroups } from '../utils/api';
+import { fetchUserInfo, updateUserInfo, fetchDdays, postDday, deleteDday, fetchGroupsByUser } from '../utils/api';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
@@ -56,7 +56,7 @@ export default function ProfileScreen() {
   useEffect(() => {
     const getGroups = async () => {
       try {
-        const groups = await fetchGroups();
+        const groups = await fetchGroupsByUser();
         setGroupTags(groups);
       } catch (err) {
         console.log("그룹 이름 불러오기 실패: ", err)

@@ -6,6 +6,7 @@ import NextButton from "../components/NextButton";
 import Header from "../components/Header";
 import { postGroup } from "../utils/api";
 import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const GROUP_COLORS = [
   "#F45D48", "#FDB147", "#D1A15C", "#36B84C",
@@ -14,6 +15,7 @@ const GROUP_COLORS = [
 ];
 
 export default function GroupColorScreen() {
+  const navigation = useNavigation();
   const route = useRoute();
   const { name: groupName } = route.params;
 
@@ -23,6 +25,7 @@ export default function GroupColorScreen() {
   const handleNext = async () => {
     try {
       await postGroup({ name: groupName, color: selectedColor });
+      navigation.navigate('Group')
     } catch (err) {
       console.log("그룹 생성 실패! : ", err);
     }

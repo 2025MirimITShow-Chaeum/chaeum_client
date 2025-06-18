@@ -94,7 +94,7 @@ export async function joinGroup() {
   });
 }
 
-export async function fetchGroups() {
+export async function fetchGroupsByUser() {
   const headers = await authHeaders();
   const res = await api.get(`/group`, {
     headers,
@@ -117,14 +117,14 @@ export async function fetchTodosByGroup(groupId) {
 // 그룹 전체 랭킹
 export async function fetchAllGroupRankings() {
   const headers = await authHeaders();
-  const res = await api.get(`/ranking`, { headers });
+  const res = await api.get(`/group/ranking`, { headers });
   return res.data;
 }
 
 // 그룹 랭킹
 export async function fetchMyGroupRankings(userId) {
   const headers = await authHeaders();
-  const res = await api.get(`/ranking/user`, {
+  const res = await api.get(`/group/ranking/user`, {
     params: { user_id: userId },
     headers,
   });
@@ -140,7 +140,7 @@ export async function fetchUserTodos() {
 
 export async function createTodo({ group_id, title }) {
   const headers = await authHeaders();
-  return api.post("/todos", { user_id, group_id, title }, { headers });
+  return api.post("/todos", { group_id, title }, { headers });
 }
 
 // 투두 수정

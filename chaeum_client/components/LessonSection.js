@@ -37,11 +37,10 @@ export default function LessonSection() {
   const handleAddTodo = async (group) => {
     try {
       const newTitle = "새 할 일";
-      const userId = group.todos[0]?.user_id;
-      if (!userId) throw new Error("user_id를 찾을 수 없습니다.");
+      // const userId = group.todos[0]?.user_id;
+      // if (!userId) throw new Error("user_id를 찾을 수 없습니다.");
 
       await createTodo({
-        user_id: userId,
         group_id: group.group_id,
         title: newTitle,
       });

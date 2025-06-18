@@ -3,9 +3,9 @@ import { View, Text, ScrollView, TouchableOpacity, Image, Pressable } from 'reac
 import { styles } from './styles/Rank.styles';
 import { useNavigation } from "@react-navigation/native";
 import BottomNav from "../components/BottomNav";
+import { fetchAllGroupRankings, fetchMyGroupRankings } from '../utils/api';
 
 export default function RankScreen() {
-  const userId = "dFSrijJPDRPY5pEtKk4nFwYwj552";
   const navigation = useNavigation();
   const [showAll, setShowAll] = useState(true);
   const [top3Groups, setTop3Groups] = useState([]);
