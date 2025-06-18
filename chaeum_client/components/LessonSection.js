@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import StudyTaskItem from "./StudyTaskItem";
 import TodoList from "./TodoList";
-import { fetchHome, createTodo } from "../src/api";
+import { fetchHome, createTodo } from "../utils/api";
 
 export default function LessonSection() {
   const [groups, setGroups] = useState([]);

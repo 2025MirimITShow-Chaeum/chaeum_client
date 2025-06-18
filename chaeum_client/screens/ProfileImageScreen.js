@@ -5,7 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
-import { registerProfileImage } from "../src/api";  // ★ named export
+import { registerProfileImage } from "../utils/api";  // ★ named export
 import * as SecureStore from "expo-secure-store";
 
 export default function ProfileImageScreen({ navigation }) {

@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import * as SecureStore from "expo-secure-store";
-import api, { fetchAccumulatedTime } from "../src/api"; // fetchAccumulatedTime 추가
+import api, { fetchAccumulatedTime } from "../utils/api"; // fetchAccumulatedTime 추가
 
 export default function TimerScreen() {
   const navigation = useNavigation();
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     // marginTop: 10,
     marginBottom: 10
   },
-  timerTextWrapper: {  alignItems: "center" },
+  timerTextWrapper: { alignItems: "center" },
   timerLabel: { color: "#fff", fontSize: 16, marginBottom: 6 },
   timerValue: { color: "#fff", fontSize: 50, fontWeight: "500" },
   totalLabel: { color: "#3275CD", marginTop: 36, fontSize: 10 },

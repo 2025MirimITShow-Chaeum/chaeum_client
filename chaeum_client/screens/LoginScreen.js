@@ -13,7 +13,7 @@ import firebase from "firebase/compat/app";
 import { auth } from "../firebase";
 import Constants from "expo-constants";
 import * as WebBrowser from "expo-web-browser";
-import { loginWithGoogle } from "../src/api"; // ← 변경
+import { loginWithGoogle } from "../utils/api"; // ← 변경
 import * as SecureStore from "expo-secure-store";
 
 WebBrowser.maybeCompleteAuthSession();

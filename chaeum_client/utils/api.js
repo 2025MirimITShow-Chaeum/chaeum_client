@@ -1,48 +1,203 @@
-import axios from 'axios';
-import { BASE_URL, ACCESSTOKEN } from '@env';
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+import Constants from "expo-constants";
 
-const api = axios.create({ baseURL: BASE_URL });
+const { BASE_URL } = Constants.expoConfig.extra;
 
-api.interceptors.request.use(
-  (config) => {
-    config.headers.Authorization = `Bearer ${ACCESSTOKEN}`;
-    return config;
-  },
-  (error) => Promise.reject(error)
+// JWT 헤더 생성 함수
+async function authHeaders() {
+  const token = await SecureStore.getItemAsync("accessToken");
+  return {
+    Authorization: token ? `Bearer ${token}` : "",
+    "Content-Type": "application/json",
+  };
+}
+
+// axios 인스턴스
+const api = axios.create({
+  baseURL: `${BASE_URL}`,
+  timeout: 10000,
+});
+
+// 응답 인터셉터: 401 시 토큰 삭제
+api.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    if (err.response?.status === 401) {
+      await SecureStore.deleteItemAsync("accessToken");
+      // TODO: 네비게이션으로 로그인 화면 이동
+    }
+    return Promise.reject(err);
+  }
 );
 
+// 오늘 날짜(YYYY-MM-DD) 헬퍼
+function getToday() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+// 인증 / 로그인 관련
+export async function loginWithGoogle({ idToken }) {
+  return api.post("/auth/login", { idToken });
+}
+
+export async function registerNickname(nickname) {
+  const headers = await authHeaders();
+  return api.patch("/auth/register", { nickname }, { headers });
+}
+
+export async function registerProfileImage(profile_image) {
+  const headers = await authHeaders();
+  return api.patch("/auth/register", { profile_image }, { headers });
+}
+
+// 홈 / 타이머
+export async function fetchHome() {
+  const headers = await authHeaders();
+  return api.get("/home", { headers });
+}
+
+export async function fetchTimer(groupId) {
+  const headers = await authHeaders();
+  const date = getToday();
+  return api.get(`/timers?group_id=${groupId}&date=${date}`, { headers });
+}
+
+export async function startTimer(groupId) {
+  const headers = await authHeaders();
+  return api.post(`/timers/${groupId}/start`, {}, { headers });
+}
+
+export async function stopTimer(groupId) {
+  const headers = await authHeaders();
+  return api.post(`/timers/${groupId}/stop`, {}, { headers });
+}
+
+export async function fetchAccumulatedTime(date) {
+  const headers = await authHeaders();
+  return api.get(`/timers/accumulated-time?date=${date}`, { headers });
+}
+
+// 그룹 관련
+export async function joinGroup() {
+  const headers = await authHeaders();
+  return api.get(`/group`, {
+    headers,
+  });
+}
+
+export async function fetchGroups() {
+  const headers = await authHeaders();
+  return api.get(`/group`, {
+    headers,
+  });
+}
+
+export async function fetchGroupDetail(groupId) {
+  const headers = await authHeaders();
+  return api.get(`/group/${groupId}`, { headers });
+}
+
+export async function fetchTodosByGroup(groupId) {
+  const headers = await authHeaders();
+  return api.get(`/todos/group/${groupId}`, { headers });
+}
+
+// 그룹 전체 랭킹
+export async function fetchAllGroupRankings() {
+  const headers = await authHeaders();
+  const res = await api.get(`/ranking`, { headers });
+  return res.data;
+}
+
+// 그룹 랭킹
+export async function fetchMyGroupRankings(userId) {
+  const headers = await authHeaders();
+  const res = await api.get(`/ranking/user`, {
+    params: { user_id: userId },
+    headers,
+  });
+  return res.data;
+}
+
+
+
+// 유저 투두 관련
+export async function fetchUserTodos() {
+  const headers = await authHeaders();
+  return api.get('/todos', { headers })
+}
+
+export async function createTodo({ group_id, title }) {
+  const headers = await authHeaders();
+  return api.post("/todos", { user_id, group_id, title }, { headers });
+}
+
+// 투두 수정
+export async function updateTodo(todoId, { title }) {
+  const headers = await authHeaders();
+  return api.patch(`/todos/${todoId}`, { title }, { headers })
+}
+
+// 투두 완료 / 취소
+export async function updateStatusTodo(todoId, { isDone }) {
+  const headers = await authHeaders();
+  return api.patch(`/todos/${todoId}`, { isDone }, { headers })
+}
+
+export async function deleteTodo(todoId) {
+  const headers = await authHeaders();
+  return api.delete(`/todos/${todoId}`, { headers })
+}
+
+
+// 유저 관련
+export async function fetchUserInfo() {
+  const headers = await authHeaders();
+  const res = await api.get('/users', {
+    headers
+  });
+  return res.data;
+};
+
+export async function updateUserInfo() {
+  const headers = await authHeaders();
+  const res = await api.get('/users', {
+    nickname, profile_image, slogan
+  }, { headers });
+  return res.data;
+}
+
+export async function deleteUser() {
+  const headers = await authHeaders();
+  return api.delete('/users', { headers });
+}
+
+
+// 디데이 관련
+export async function postDdays({ title, is_main, end_at }) {
+  const headers = await authHeaders({});
+  return api.get('/d-day', { title, is_main, end_at }, { headers })
+}
+
+export async function fetchDdays() {
+  const headers = await authHeaders();
+  return api.get('/d-day', { headers })
+}
+
+export async function fetchDday(ddayId) {
+  const headers = await authHeaders();
+  return api.get(`/d-day/${ddayId}`, { headers })
+}
+
+export async function updateDday(ddayId) {
+  const headers = await authHeaders();
+  return api.update(`/d-day/${ddayId}`, { headers })
+}
+
+export async function deleteDday(ddayId) {
+  const headers = await authHeaders();
+  return api.get(`/d-day/${ddayId}`, { headers })
+}
+
 export default api;
-
-// 사용자가 가입한 그룹 불러오기
-export const fetchGroupsByUser = async (userId) => {
-  const response = await api.get(`/group`, {
-    params: { user_id: userId },
-  });
-  return response.data;
-};
-
-// 그룹의 정보 가져오기
-export const fetchGroupDetail = async (groupId) => {
-  const response = await api.get(`/group/${groupId}`);
-  return response.data;
-};
-
-// 그룹의 전체 투두 가져오기
-export const fetchTodosByGroup = async (groupId) => {
-  const response = await api.get(`/todos/group/${groupId}`);
-  return response.data;
-};
-
-// 전체 그룹 랭킹 가져오기
-export const fetchAllGroupRankings = async () => {
-  const res = await api.get(`/ranking`);
-  return res.data;
-};
-
-// 내가 가입한 그룹들 랭킹 가져오기
-export const fetchMyGroupRankings = async (userId) => {
-  const res = await api.get(`/ranking/me`, {
-    params: { user_id: userId },
-  });
-  return res.data;
-};

@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import InputField from "../components/InputField";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
-import { registerNickname } from "../src/api";   // ★ named export
+import { registerNickname } from "../utils/api";   // ★ named export
 import * as SecureStore from "expo-secure-store";
 
 export default function NameScreen({ navigation }) {

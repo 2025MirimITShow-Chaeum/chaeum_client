@@ -11,11 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 import BottomNav from "../components/BottomNav";
 import LessonSection from "../components/LessonSection";
 import Profile from "../components/Profile";
-import { fetchAccumulatedTime } from "../src/api";
+import { fetchAccumulatedTime } from "../utils/api";
 
 // 날짜 → "MM월 DD일 (요일)"
 function formatHeaderDate(date = new Date()) {
-  const weekdays = ["일","월","화","수","목","금","토"];
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
   const MM = String(date.getMonth() + 1).padStart(2, "0");
   const DD = String(date.getDate()).padStart(2, "0");
   const wd = weekdays[date.getDay()];
@@ -40,7 +40,7 @@ export default function HomeScreen() {
   // 오늘 날짜 YYYY-MM-DD
   const getTodayDate = () => {
     const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   };
 
   useEffect(() => {
