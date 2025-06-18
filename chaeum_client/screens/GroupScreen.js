@@ -7,7 +7,7 @@ import WeeklyStars from '../components/WeeklyStars';
 import DividingLine from '../components/dividingLine';
 import GroupMemberList from '../components/GroupMemberList';
 import NameTag from '../components/NameTag';
-import BottomNav from "../components/BottomNav"; 
+import BottomNav from "../components/BottomNav";
 import { useNavigation } from '@react-navigation/native';
 import { fetchGroupsByUser, fetchGroupDetail, fetchTodosByGroup } from '../utils/api';
 import { USER_ID } from "@env";
@@ -42,7 +42,7 @@ export default function GroupScreen() {
 
     loadGroups();
   }, []);
-  
+
   const [groupDetail, setGroupDetail] = useState(null);
   const myNickname = groupDetail?.members?.find(m => m.uid === userId)?.nickname ?? '나';
 

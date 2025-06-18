@@ -129,7 +129,6 @@ export async function fetchMyGroupRankings(userId) {
 }
 
 
-
 // 유저 투두 관련
 export async function fetchUserTodos() {
   const headers = await authHeaders();
@@ -168,10 +167,10 @@ export async function fetchUserInfo() {
   return res.data;
 };
 
-export async function updateUserInfo() {
+export async function updateUserInfo({ nickname, slogan }) {
   const headers = await authHeaders();
-  const res = await api.get('/users', {
-    nickname, profile_image, slogan
+  const res = await api.patch('/users', {
+    nickname, slogan
   }, { headers });
   return res.data;
 }
@@ -183,29 +182,27 @@ export async function deleteUser() {
 
 
 // 디데이 관련
-export async function postDdays({ title, is_main, end_at }) {
+export async function postDday({ title, end_at }) {
   const headers = await authHeaders({});
-  return api.get('/d-day', { title, is_main, end_at }, { headers })
+  const res = api.post('/dday', { title, end_at }, { headers })
+  return res.data ?? [];
 }
 
 export async function fetchDdays() {
   const headers = await authHeaders();
-  return api.get('/d-day', { headers })
+  const res = await api.get('/dday', { headers })
+  return res.data.data ?? [];
 }
 
-export async function fetchDday(ddayId) {
+export async function updateDday(id) {
   const headers = await authHeaders();
-  return api.get(`/d-day/${ddayId}`, { headers })
+  return api.patch(`/dday/${id}`, { headers })
 }
 
-export async function updateDday(ddayId) {
+export async function deleteDday(id) {
   const headers = await authHeaders();
-  return api.update(`/d-day/${ddayId}`, { headers })
-}
-
-export async function deleteDday(ddayId) {
-  const headers = await authHeaders();
-  return api.get(`/d-day/${ddayId}`, { headers })
+  console.log("삭제 요청 →", `/dday/${id}`);
+  return api.delete(`/dday/${id}`, { headers })
 }
 
 export default api;
