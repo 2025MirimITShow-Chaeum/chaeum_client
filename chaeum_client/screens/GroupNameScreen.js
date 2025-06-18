@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, Alert } from "react-native";
+import { View, Text, Image, StyleSheet, handleNext } from "react-native";
 import { fonts } from '../constants/fonts';
 import InputField from "../components/InputField";
 import NextButton from "../components/NextButton";

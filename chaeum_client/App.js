@@ -21,6 +21,7 @@ import GroupColorScreen from './screens/GroupColorScreen';
 import GroupCompleteScreen from './screens/GroupCompleteScreen';
 import GroupJoin1Screen from './screens/GroupJoin1Screen';
 import GroupJoin2Screen from './screens/GroupJoin2Screen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -50,7 +51,7 @@ export default function App() {
     <TimerProvider>
       <NavigationContainer>
         {/* initialRouteName에 자신이 테스트할 페이지 넣기 */}
-        <Stack.Navigator initialRouteName="GroupJoin2" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Name" component={NameScreen} />
           <Stack.Screen name="ProfileImage" component={ProfileImageScreen} />
@@ -63,6 +64,7 @@ export default function App() {
           <Stack.Screen name='GroupComplete' component={GroupCompleteScreen} />
           <Stack.Screen name='GroupJoin1' component={GroupJoin1Screen} />
           <Stack.Screen name='GroupJoin2' component={GroupJoin2Screen} />
+          <Stack.Screen name='Profile' component={ProfileScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </TimerProvider>
