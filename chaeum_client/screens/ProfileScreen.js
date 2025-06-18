@@ -8,7 +8,7 @@ import EditIcon from '../assets/EditIcon.svg';
 import TrashIcon from '../assets/TrashIcon.svg';
 import AddIcon from '../assets/AddIcon.svg';
 import { useNavigation } from '@react-navigation/native';
-import { fetchUserInfo, updateUserInfo, fetchDdays, postDday, deleteDday } from '../utils/api';
+import { fetchUserInfo, updateUserInfo, fetchDdays, postDday, deleteDday, fetchGroups } from '../utils/api';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
@@ -50,15 +50,21 @@ export default function ProfileScreen() {
     getDdays();
   }, [])
 
-  const [groupTags, setGroupTags] = useState([
-    '😭 수학키움반',
-    '응용과 개발',
-    '과학 A팀',
-    '🧠 파이팅국어',
-    '😔 김지혜 바보',
-    'ITshow 밤샘 개발팟',
-  ]);
+  const [groupTags, setGroupTags] = useState([]);
   const currentGroupCount = groupTags.length;
+
+  useEffect(() => {
+    const getGroups = async () => {
+      try {
+        const groups = await fetchGroups();
+        setGroupTags(groups);
+      } catch (err) {
+        console.log("그룹 이름 불러오기 실패: ", err)
+        setGroupTags([]);
+      }
+    }
+    getGroups();
+  }, [])
 
   const [showProfileEdit, setShowProfileEdit] = useState(false);
   const [showGroupBottomSheet, setShowGroupBottomSheet] = useState(false);
@@ -149,7 +155,7 @@ export default function ProfileScreen() {
 
             <InfoCard title="스터디 그룹" icon={<AddIcon fill="#f1f1f1" />} onIconPress={handleAddGroup} contentStyle={styles.tagContainer}>
               {groupTags.map((tag, idx) => (
-                <Text key={idx} style={styles.tag}>{tag}</Text>
+                <Text key={idx} style={styles.tag}>{tag.name}</Text>
               ))}
             </InfoCard>
 

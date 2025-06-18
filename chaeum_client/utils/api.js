@@ -96,19 +96,22 @@ export async function joinGroup() {
 
 export async function fetchGroups() {
   const headers = await authHeaders();
-  return api.get(`/group`, {
+  const res = await api.get(`/group`, {
     headers,
   });
+  return res.data;
 }
 
 export async function fetchGroupDetail(groupId) {
   const headers = await authHeaders();
-  return api.get(`/group/${groupId}`, { headers });
+  const res = await api.get(`/group/${groupId}`, { headers });
+  return res.data;
 }
 
 export async function fetchTodosByGroup(groupId) {
   const headers = await authHeaders();
-  return api.get(`/todos/group/${groupId}`, { headers });
+  const res = await api.get(`/todos/group/${groupId}`, { headers });
+  return res.data;
 }
 
 // 그룹 전체 랭킹
