@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { fonts } from '../constants/fonts';
 import ColorPicker from "../components/ColorPicker";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
+import { postGroup } from "../utils/api";
+import { useRoute } from "@react-navigation/native";
 
 const GROUP_COLORS = [
   "#F45D48", "#FDB147", "#D1A15C", "#36B84C",
@@ -12,13 +14,19 @@ const GROUP_COLORS = [
 ];
 
 export default function GroupColorScreen() {
-  const [selectedColor, setSelectedColor] = useState(null);
+  const route = useRoute();
+  const { name: groupName } = route.params;
 
-  const handleNext = () => {
-    if (selectedColor) {
-      console.log("선택한 색:", selectedColor);
-      // 그룹 생성 API에 색상 전달
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleNext = async () => {
+    try {
+      await postGroup({ name: groupName, color: selectedColor });
+    } catch (err) {
+      console.log("그룹 생성 실패! : ", err);
     }
+
   };
 
   return (
@@ -41,7 +49,7 @@ export default function GroupColorScreen() {
 
       <NextButton
         title={isLoading ? "저장 중..." : "선택 완료"}
-        disabled={!name || isLoading}
+        disabled={!groupName || isLoading}
         onPress={handleNext}
         style={styles.btn}
       />

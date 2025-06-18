@@ -6,12 +6,16 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import StudyTaskItem from "./StudyTaskItem";
 import TodoList from "./TodoList";
 import { fetchHome, createTodo } from "../utils/api";
+import { useNavigation } from "@react-navigation/native";
 
 export default function LessonSection() {
+  const navigation = useNavigation();
+
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +58,8 @@ export default function LessonSection() {
 
   if (groups.length === 0) {
     return (
-      <View style={styles.emptyContainer}>
+      <TouchableOpacity style={styles.emptyContainer}
+        onPress={() => { navigation.navigate('GroupName') }}>
         {/* <Text style={styles.emptyText}>
           지금 터치해서 스터디 그룹을 만들어봐요!
         </Text> */}
@@ -62,7 +67,7 @@ export default function LessonSection() {
           source={require("../assets/homeLogo.png")}
           style={styles.emptyImage}
         />
-      </View>
+      </TouchableOpacity>
     );
   }
 

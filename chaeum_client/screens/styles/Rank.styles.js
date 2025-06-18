@@ -17,16 +17,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   arrow: {
-    width: 34,
-    height: 34,
+    width: 28,
+    height: 28,
     resizeMode: 'contain',
   },
   week: {
     position: 'absolute',
-    left: '27r%',
+    left: '27%',
   },
   weekImg: {
-    width: 180,
+    width: 160,
     resizeMode: 'contain',
   },
 
@@ -35,17 +35,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   first: {
-    bottom: -290,
-    left: -15,
+    bottom: -240,
+    left: -40,
     zIndex: 3,
   },
   second: {
-    bottom: -240,
-    right: '18%',
+    bottom: -220,
+    right: 18,
   },
   third: {
-    bottom: -240,
-    left: '18%',
+    bottom: -220,
+    left: 18,
   },
 
   groupName: {
@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   one: {
-    height: 460,
+    height: 405,
     resizeMode: 'contain',
   },
 

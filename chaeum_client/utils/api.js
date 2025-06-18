@@ -79,9 +79,17 @@ export async function fetchAccumulatedTime(date) {
 }
 
 // 그룹 관련
+export async function postGroup({ name, color }) {
+  console.log("그룹아이디", name, color)
+  const headers = await authHeaders();
+  return api.post(`/group`, { name, color }, {
+    headers,
+  });
+}
+
 export async function joinGroup() {
   const headers = await authHeaders();
-  return api.get(`/group`, {
+  return api.post(`/group`, {
     headers,
   });
 }

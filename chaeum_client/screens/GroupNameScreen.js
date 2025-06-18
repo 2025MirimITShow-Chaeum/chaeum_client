@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, handleNext } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, handleNext } from "react-native";
 import { fonts } from '../constants/fonts';
 import InputField from "../components/InputField";
 import NextButton from "../components/NextButton";
 import Header from "../components/Header";
+import { useNavigation } from "@react-navigation/native";
 
 export default function GroupNameScreen() {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
+
+  const handleNext = () => {
+    navigation.navigate('GroupColor', { name });
+  }
 
   return (
     <View style={styles.container}>
