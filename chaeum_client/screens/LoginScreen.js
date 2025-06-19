@@ -98,18 +98,18 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logoText.png")} style={styles.logo} />
-      <Text style={styles.slogan}>슬로건 내용</Text>
+      <Text style={styles.slogan}>배움을 채우다</Text>
       <Image
         source={require("../assets/loginLogo.png")}
         style={styles.loginLogo}
       />
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.kakaoButton}
         onPress={() => navigation.navigate("Name")}
       >
         <Text style={styles.kakaoText}>카카오로 시작하기</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity
         style={[styles.googleButton, isLoading && styles.disabledButton]}
