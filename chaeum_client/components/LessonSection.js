@@ -80,6 +80,7 @@ export default function LessonSection() {
         const timeString = `${h}:${m}:${s}`;
 
         return (
+
           <View key={group.group_id} style={styles.groupSection}>
             <StudyTaskItem
               subject={group.group_name}

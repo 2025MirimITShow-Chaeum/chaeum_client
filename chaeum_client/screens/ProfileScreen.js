@@ -201,9 +201,9 @@ export default function ProfileScreen() {
                 <View style={styles.modal}>
                   <Text style={styles.modalText}>삭제할 D-day를 선택하세요</Text>
 
-                  {ddayItems && (
+                  {/* {ddayItems && (
                     <Text style={{ textAlign: 'center', marginVertical: 10 }}>삭제할 항목이 없습니다.</Text>
-                  )}
+                  )} */}
 
                   {ddayItems.map((item) => (
                     <View key={item.uid} style={styles.ddayRow}>
